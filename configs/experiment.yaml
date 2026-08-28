@@ -1,0 +1,50 @@
+experiment:
+  name: subject08_data_efficiency
+  target_subject: 8
+  seed: 42
+
+# These are deliberately explicit sample budgets. The exact mapping from
+# minutes to samples must be verified against the installed NSD dataset.
+data_budgets:
+  60m:
+    minutes: 60
+    max_train_samples: 750
+  30m:
+    minutes: 30
+    max_train_samples: 375
+  15m:
+    minutes: 15
+    max_train_samples: 188
+  7_5m:
+    minutes: 7.5
+    max_train_samples: 94
+
+model:
+  hidden_dim: 1024
+  n_blocks: 4
+  clip_scale: 1.0
+  blurry_recon: false
+  blur_scale: 0.5
+  use_prior: true
+  prior_scale: 30.0
+  max_lr: 0.0003
+  num_epochs: 150
+  batch_size: 8
+  mixup_pct: 0.33
+  use_image_aug: false
+
+pretrained:
+  # Fill this with the verified checkpoint that was trained on Subjects 1–7
+  # and did NOT include Subject 8. Never commit the checkpoint itself.
+  checkpoint: null
+  expected_subject_exclusion: 8
+
+paths:
+  data_path: null
+  cache_dir: null
+  output_dir: experiments/subject08_data_efficiency/runs
+
+reproducibility:
+  nested_training_sets: true
+  fixed_test_set: true
+  same_seed_across_conditions: true
